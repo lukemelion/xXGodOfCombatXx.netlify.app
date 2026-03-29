@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minecraft Profile Website</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;family=VT323&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #1a0f2e;
+      --surface-color: #2d1b4e;
+      --text-color: #e9d8f7;
+      --primary-action: #c77dff;
+      --secondary-action: #d8b3ff;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(199,125,255,0.14), transparent 22%),
+        radial-gradient(circle at 80% 10%, rgba(216,179,255,0.10), transparent 18%),
+        linear-gradient(180deg, #0f0620 0%, #1a0f2e 100%);
+      color: var(--text-color);
+      font-family: "VT323", monospace;
+      overflow: hidden;
+    }
+
+    .pixel-frame {
+      box-shadow:
+        0 0 0 3px #0d0d0d,
+        0 0 0 6px #5a3a7d,
+        0 0 0 9px #0d0d0d;
+    }
+
+    .blocky-button {
+      position: relative;
+      transition: transform 0.14s ease, filter 0.2s ease, background-color 0.2s ease;
+      box-shadow: inset 0 -4px 0 rgba(0,0,0,0.28);
+    }
+
+    .blocky-button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+    }
+
+    .blocky-button:active {
+      transform: translateY(1px);
+      box-shadow: inset 0 -2px 0 rgba(0,0,0,0.3);
+    }
+
+    .tab-active {
+      outline: 3px solid #0d0d0d;
+      outline-offset: -3px;
+      box-shadow: inset 0 -5px 0 rgba(0,0,0,0.28), 0 0 0 2px rgba(255,255,255,0.08);
+    }
+
+    .panel-enter {
+      animation: panelIn 0.35s ease;
+    }
+
+    @keyframes panelIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .float-grid::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.2));
+    }
+
+    .focus-ring:focus-visible {
+      outline: 3px solid #ffffff;
+      outline-offset: 2px;
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="w-full h-full overflow-auto relative">
+   <div class="float-grid absolute inset-0"></div>
+   <header class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-4">
+    <div id="heroCard" class="pixel-frame rounded-none p-6 sm:p-8 bg-[var(--surface-color)]/90 backdrop-blur-sm">
+     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+      <div class="space-y-4">
+       <div class="inline-flex items-center gap-3 px-4 py-2 bg-black/30 border border-white/10">
+        <i data-lucide="swords" class="w-5 h-5"></i> <span id="statusText" class="text-[22px] tracking-wide">Minecraft PvP Profile</span>
+       </div>
+       <div>
+        <h1 id="mainTitle" class="leading-tight text-3xl sm:text-5xl break-words" style="font-family:'Press Start 2P', cursive;">xXGodOfCombatXx</h1>
+        <p id="subtitleText" class="mt-4 text-2xl sm:text-3xl text-[var(--secondary-action)]">Well... At Least, Im Training to be</p>
+       </div>
+      </div>
+      <div class="grid grid-cols-3 gap-3 sm:gap-4 w-full lg:w-auto">
+       <div class="pixel-frame bg-black/25 p-4 text-center min-w-[96px]">
+        <div class="text-3xl">
+         ⚔️
+        </div>
+        <div class="text-xl mt-2">
+         PvP
+        </div>
+       </div>
+       <div class="pixel-frame bg-black/25 p-4 text-center min-w-[96px]">
+        <div class="text-3xl">
+         🏠
+        </div>
+        <div class="text-xl mt-2">
+         SMP
+        </div>
+       </div>
+       <div class="pixel-frame bg-black/25 p-4 text-center min-w-[96px]">
+        <div class="text-3xl">
+         🎮
+        </div>
+        <div class="text-xl mt-2">
+         Practice
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </header>
+   <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pb-8">
+    <nav aria-label="Profile Sections" class="mt-4">
+     <div id="tabBar" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
+      <button type="button" class="focus-ring blocky-button pixel-frame px-4 py-4 text-left text-xl bg-[var(--primary-action)] text-black font-bold" data-tab="server"> <span id="tabOneLabel">The Server I Play On</span> </button> <button type="button" class="focus-ring blocky-button pixel-frame px-4 py-4 text-left text-xl bg-[var(--surface-color)]" data-tab="packs"> <span id="tabTwoLabel">My Recource Packs(I use)</span> </button> <button type="button" class="focus-ring blocky-button pixel-frame px-4 py-4 text-left text-xl bg-[var(--surface-color)]" data-tab="videos"> <span id="tabThreeLabel">My Pvp Videos</span> </button> <button type="button" class="focus-ring blocky-button pixel-frame px-4 py-4 text-left text-xl bg-[var(--surface-color)]" data-tab="worlds"> <span id="tabFourLabel">My Practice Worlds</span> </button> <button type="button" class="focus-ring blocky-button pixel-frame px-4 py-4 text-left text-xl bg-[var(--surface-color)]" data-tab="overlay"> <span id="tabFiveLabel">My Pvp Bare Bones Overlay Pack</span> </button> <button type="button" class="focus-ring blocky-button pixel-frame px-4 py-4 text-left text-xl bg-[var(--surface-color)]" data-tab="leaderboard"> <span id="tabSixLabel">Top 5 Players</span> </button>
+     </div>
+    </nav>
+    <section class="mt-6">
+     <div id="contentPanel" class="pixel-frame bg-[var(--surface-color)]/95 p-5 sm:p-7 panel-enter">
+      <div class="flex items-start justify-between gap-4 flex-wrap">
+       <div>
+        <h2 id="panelTitle" class="text-3xl sm:text-4xl text-[var(--primary-action)]" style="font-family:'Press Start 2P', cursive;">The Server I Play On</h2>
+        <p id="panelIntro" class="mt-3 text-2xl opacity-90">This is the place where I train, fight, and keep getting better.</p>
+       </div>
+       <div id="panelIconWrap" class="pixel-frame bg-black/20 p-3">
+        <i id="panelIcon" data-lucide="tower-control" class="w-8 h-8"></i>
+       </div>
+      </div>
+      <div id="contentBody" class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
+      </div>
+     </div>
+    </section>
+    <footer class="pt-6 pb-10 text-center text-xl opacity-80">
+     Built for battles, clips, packs, and practice.
+    </footer>
+   </main>
+  </div>
+  <script>
+    const defaultConfig = {
+      background_color: "#1a0f2e",
+      surface_color: "#2d1b4e",
+      text_color: "#e9d8f7",
+      primary_action_color: "#c77dff",
+      secondary_action_color: "#d8b3ff",
+      font_family: "Press Start 2P",
+      font_size: 18,
+      main_title: "xXGodOfCombatXx",
+      subtitle_text: "Well... At Least, Im Training to be",
+      tab_one_label: "The Server I Play On",
+      tab_two_label: "My Recource Packs(I use)",
+      tab_three_label: "My Pvp Videos",
+      tab_four_label: "My Practice Worlds",
+      tab_five_label: "My Pvp Bare Bones Overlay Pack",
+      tab_six_label: "Top 5 Players"
+    };
+
+    const appState = {
+      activeTab: "server"
+    };
+
+    const tabContent = {
+      server: {
+        title: "The Server I Play On",
+        intro: "Where I grind and compete against the best players.",
+        icon: "tower-control",
+        servers: [
+          {
+            name: "PvP Arena Server",
+            address: "pvp.exampleserver.net:25565",
+            mode: "1v1 Duels & Tournaments",
+            description: "Competitive dueling server with ranked matchmaking and tournament brackets. This is my main grind for improving my combat skills."
+          },
+          {
+            name: "Survival SMP",
+            address: "smp.exampleserver.net:25565",
+            mode: "Survival Multiplayer",
+            description: "Casual SMP with friends where I build bases, mine, and chill between intense PvP sessions. Great for relaxing."
+          }
+        ]
+      },
+      packs: {
+        title: "My Recource Packs(I use)",
+        intro: "These packs keep my game clean, fast, and focused on combat.",
+        icon: "package",
+        packs: [
+          {
+            name: "Faithful 1.12.2",
+            version: "1.12.2",
+            description: "Classic faithful textures for clean, readable gameplay. Great baseline for any PvP session.",
+            link: "https://xXGodOfCombatXx.netlify.app/recource-pack/faithful/Faithful-1.12.2.zip",
+            linkText: "Download Pack"
+          },
+          {
+            name: "PvP Ultra HD",
+            version: "1.12.2",
+            description: "High-definition textures optimized for combat. Crystal clear item renders and bold colors for quick identification.",
+            link: "https://xXGodOfCombatXx.netlify.app/recource-pack/ultra/PvP-Ultra-HD.zip",
+            linkText: "Download Pack"
+          },
+          {
+            name: "Clarity PvP Pack",
+            version: "1.12.2",
+            description: "Minimalist design with enhanced contrast. Perfect for competitive play with reduced visual clutter.",
+            link: "https://xXGodOfCombatXx.netlify.app/recource-pack/clarity/Clarity-PvP.zip",
+            linkText: "Download Pack"
+          }
+        ]
+      },
+      videos: {
+        title: "My Pvp Videos",
+        intro: "My best clips, combos, and highlights from training and battles.",
+        icon: "play-circle",
+        videos: [
+          {
+            title: "Insane Combo Montage",
+            description: "Best sword combos and clutch moments from last month",
+            thumbnail: "https://via.placeholder.com/320x180/7cff5b/0b0f0b?text=Combo+Montage"
+          },
+          {
+            title: "Tournament Finals",
+            description: "My road to winning the monthly PvP championship",
+            thumbnail: "https://via.placeholder.com/320x180/b8ff8a/0b0f0b?text=Tournament"
+          },
+          {
+            title: "Mace Highlight Reel",
+            description: "1.21 mace practice domination with crazy air combos",
+            thumbnail: "https://via.placeholder.com/320x180/7cff5b/0b0f0b?text=Mace+Highlights"
+          },
+          {
+            title: "Shield Tech Guide",
+            description: "Advanced shield combos and defensive techniques explained",
+            thumbnail: "https://via.placeholder.com/320x180/b8ff8a/0b0f0b?text=Shield+Guide"
+          },
+          {
+            title: "Sneaky Plays",
+            description: "Stealth and positioning wins against stronger opponents",
+            thumbnail: "https://via.placeholder.com/320x180/7cff5b/0b0f0b?text=Stealth+Plays"
+          },
+          {
+            title: "1v3 Clutch",
+            description: "Insane 1 vs 3 survival against the server's top players",
+            thumbnail: "https://via.placeholder.com/320x180/b8ff8a/0b0f0b?text=1v3+Clutch"
+          }
+        ]
+      },
+      worlds: {
+        title: "My Practice Worlds",
+        intro: "Custom worlds built for specific PvP training and improvement.",
+        icon: "map",
+        maps: [
+          {
+            name: "1.26.1 Mace Practice",
+            version: "1.26.1",
+            focus: "⚔️ Mace Combos & Movement",
+            description: "Dedicated arena for mastering the new 1.26 mace weapon. Practice aerial combos, timing, and strategic positioning against dummy targets and real players.",
+            link: "https://xXGodOfCombatXx.netlify.app/pvp-maps/mace/Mace Practice Map.zip",
+            linkText: "Download Map"
+          },
+          {
+            name: "1.12.2 Sword & Knockback Arena",
+            version: "1.12.2",
+            focus: "🗡️ Classic Sword Combat",
+            description: "Classic combat practice on 1.12.2 mechanics. Perfect for refining sword aim, w-tapping, and knockback management. Build endurance with back-to-back matches.",
+            link: "https://xXGodOfCombatXx.netlify.app/pvp-maps/sword/sword and shield.zip",
+            linkText: "Download Map"
+          },
+          {
+            name: "1.12.2 TNT Minecart PvP Arena",
+            version: "1.12.2",
+            focus: "💣 Vehicle Combat & Chaos",
+            description: "Wild PvP arena featuring TNT minecarts for explosive combat. Fast-paced, chaotic matches with environmental hazards. Perfect for learning to adapt and think on your feet.",
+            link: "https://xXGodOfCombatXx.netlify.app/pvp-maps/Kart/Tnt Minecart Pvp Map.zip",
+            linkText: "Download Map"
+          }
+        ]
+      },
+      overlay: {
+        title: "Zephyr PvP Bare Bones Overlay",
+        intro: "My custom competitive overlay for 1.12.2 PvP.",
+        icon: "shield",
+        packs: [
+          {
+            name: "Zephyr PvP Bare Bones Overlay",
+            version: "1.12.2",
+            description: "My custom competitive overlay for 1.12.2 PvP. Ultra-clean textures with minimal distractions, bold colors, and optimized HUD elements for maximum combat awareness.",
+            link: "https://xXGodOfCombatXx.netlify.app/recource-pack/latest/Pvp-Ultimate.zip",
+            linkText: "Download Overlay Pack"
+          }
+        ]
+      },
+      leaderboard: {
+        title: "Top 5 Players",
+        intro: "The best ranked competitors on the server this season.",
+        icon: "trophy",
+        players: [
+          { rank: 1, name: "xXGodOfCombatXx", points: 10 },
+          { rank: 2, name: "Bam", points: 10 },
+          { rank: 3, name: "GG_Rhino", points: 10 },
+          { rank: 4, name: "Is_Cuz_Im_Ginger", points: 7 },
+          { rank: 5, name: "MrBattaka", points: 5 }
+        ]
+      }
+    };
+
+    const elements = {
+      root: document.documentElement,
+      body: document.body,
+      heroCard: document.getElementById("heroCard"),
+      mainTitle: document.getElementById("mainTitle"),
+      subtitleText: document.getElementById("subtitleText"),
+      statusText: document.getElementById("statusText"),
+      tabOneLabel: document.getElementById("tabOneLabel"),
+      tabTwoLabel: document.getElementById("tabTwoLabel"),
+      tabThreeLabel: document.getElementById("tabThreeLabel"),
+      tabFourLabel: document.getElementById("tabFourLabel"),
+      tabFiveLabel: document.getElementById("tabFiveLabel"),
+      tabSixLabel: document.getElementById("tabSixLabel"),
+      tabButtons: Array.from(document.querySelectorAll("[data-tab]")),
+      panel: document.getElementById("contentPanel"),
+      panelTitle: document.getElementById("panelTitle"),
+      panelIntro: document.getElementById("panelIntro"),
+      panelIcon: document.getElementById("panelIcon"),
+      panelIconWrap: document.getElementById("panelIconWrap"),
+      contentBody: document.getElementById("contentBody")
+    };
+
+    function getConfig() {
+      return window.elementSdk && window.elementSdk.config
+        ? window.elementSdk.config
+        : defaultConfig;
+    }
+
+    function renderCards(cards) {
+      elements.contentBody.innerHTML = "";
+      cards.forEach((card, index) => {
+        const item = document.createElement("article");
+        item.className = "pixel-frame bg-black/20 p-5 sm:p-6 panel-enter";
+        item.style.animationDelay = `${index * 0.05}s`;
+
+        const heading = document.createElement("h3");
+        heading.className = "text-2xl sm:text-3xl";
+        heading.textContent = card.heading;
+
+        const text = document.createElement("p");
+        text.className = "mt-3 text-xl sm:text-2xl opacity-90";
+        text.textContent = card.text;
+
+        item.appendChild(heading);
+        item.appendChild(text);
+        elements.contentBody.appendChild(item);
+      });
+    }
+
+    function renderServers(servers) {
+      elements.contentBody.innerHTML = "";
+      servers.forEach((server, index) => {
+        const item = document.createElement("article");
+        item.className = "pixel-frame bg-black/20 p-5 sm:p-6 panel-enter";
+        item.style.animationDelay = `${index * 0.05}s`;
+
+        const heading = document.createElement("h3");
+        heading.className = "text-2xl sm:text-3xl text-[var(--primary-action)]";
+        heading.textContent = server.name;
+
+        const address = document.createElement("p");
+        address.className = "mt-2 text-xl text-[var(--secondary-action)] font-bold";
+        address.textContent = server.address;
+
+        const mode = document.createElement("p");
+        mode.className = "mt-2 text-xl";
+        mode.textContent = server.mode;
+
+        const desc = document.createElement("p");
+        desc.className = "mt-3 text-lg sm:text-xl opacity-90";
+        desc.textContent = server.description;
+
+        item.appendChild(heading);
+        item.appendChild(address);
+        item.appendChild(mode);
+        item.appendChild(desc);
+        elements.contentBody.appendChild(item);
+      });
+    }
+
+    function renderPacks(packs) {
+      elements.contentBody.innerHTML = "";
+      packs.forEach((pack, index) => {
+        const item = document.createElement("article");
+        item.className = "pixel-frame bg-black/20 p-5 sm:p-6 panel-enter";
+        item.style.animationDelay = `${index * 0.05}s`;
+
+        const heading = document.createElement("h3");
+        heading.className = "text-2xl sm:text-3xl text-[var(--primary-action)]";
+        heading.textContent = pack.name;
+
+        const version = document.createElement("p");
+        version.className = "mt-2 text-lg text-[var(--secondary-action)]";
+        version.textContent = `Version: ${pack.version}`;
+
+        const desc = document.createElement("p");
+        desc.className = "mt-3 text-lg sm:text-xl opacity-90";
+        desc.textContent = pack.description;
+
+        const link = document.createElement("a");
+        link.href = pack.link;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.className = "inline-block mt-4 px-4 py-2 bg-[var(--primary-action)] text-black font-bold text-lg blocky-button pixel-frame hover:brightness-110 transition-all";
+        link.textContent = pack.linkText;
+
+        item.appendChild(heading);
+        item.appendChild(version);
+        item.appendChild(desc);
+        item.appendChild(link);
+        elements.contentBody.appendChild(item);
+      });
+    }
+
+    function renderVideos(videos) {
+      elements.contentBody.innerHTML = "";
+      videos.forEach((video, index) => {
+        const item = document.createElement("article");
+        item.className = "pixel-frame bg-black/20 p-4 sm:p-5 panel-enter hover:opacity-90 transition-opacity cursor-pointer";
+        item.style.animationDelay = `${index * 0.05}s`;
+
+        const thumbnail = document.createElement("img");
+        thumbnail.src = video.thumbnail;
+        thumbnail.alt = video.title;
+        thumbnail.className = "w-full h-auto rounded-none pixel-frame";
+        thumbnail.loading = "lazy";
+        thumbnail.style.border = "3px solid #5a3a7d";
+
+        const heading = document.createElement("h3");
+        heading.className = "mt-4 text-xl sm:text-2xl text-[var(--primary-action)]";
+        heading.textContent = video.title;
+
+        const desc = document.createElement("p");
+        desc.className = "mt-2 text-lg opacity-90";
+        desc.textContent = video.description;
+
+        item.appendChild(thumbnail);
+        item.appendChild(heading);
+        item.appendChild(desc);
+        elements.contentBody.appendChild(item);
+      });
+    }
+
+    function renderMaps(maps) {
+      elements.contentBody.innerHTML = "";
+      maps.forEach((map, index) => {
+        const item = document.createElement("article");
+        item.className = "pixel-frame bg-black/20 p-5 sm:p-6 panel-enter";
+        item.style.animationDelay = `${index * 0.05}s`;
+
+        const heading = document.createElement("h3");
+        heading.className = "text-2xl sm:text-3xl text-[var(--primary-action)]";
+        heading.textContent = map.name;
+
+        const focus = document.createElement("p");
+        focus.className = "mt-2 text-xl text-[var(--secondary-action)] font-bold";
+        focus.textContent = map.focus;
+
+        const version = document.createElement("p");
+        version.className = "mt-1 text-lg";
+        version.textContent = `Minecraft ${map.version}`;
+
+        const desc = document.createElement("p");
+        desc.className = "mt-3 text-lg sm:text-xl opacity-90";
+        desc.textContent = map.description;
+
+        item.appendChild(heading);
+        item.appendChild(focus);
+        item.appendChild(version);
+        item.appendChild(desc);
+
+        if (map.link) {
+          const link = document.createElement("a");
+          link.href = map.link;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.className = "inline-block mt-4 px-4 py-2 bg-[var(--primary-action)] text-black font-bold text-lg blocky-button pixel-frame hover:brightness-110 transition-all";
+          link.textContent = map.linkText;
+          item.appendChild(link);
+        }
+
+        elements.contentBody.appendChild(item);
+      });
+    }
+
+    function renderLeaderboard(players) {
+      elements.contentBody.innerHTML = "";
+      const table = document.createElement("div");
+      table.className = "w-full overflow-x-auto";
+
+      // Table header
+      const header = document.createElement("div");
+      header.className = "grid grid-cols-3 gap-4 pixel-frame bg-black/40 p-4 mb-2 font-bold text-xl";
+      header.innerHTML = `
+        <div class="text-[var(--primary-action)]">Rank</div>
+        <div class="text-[var(--primary-action)]">Player</div>
+        <div class="text-[var(--primary-action)]">Points</div>
+      `;
+      table.appendChild(header);
+
+      // Table rows
+      players.forEach((player, index) => {
+        const row = document.createElement("div");
+        row.className = "grid grid-cols-3 gap-4 pixel-frame bg-black/20 p-4 mb-2 panel-enter text-lg";
+        row.style.animationDelay = `${index * 0.05}s`;
+
+        const medal = player.rank === 1 ? "🥇" : player.rank === 2 ? "🥈" : player.rank === 3 ? "🥉" : "";
+
+        row.innerHTML = `
+          <div class="text-[var(--secondary-action)] font-bold">${medal} #${player.rank}</div>
+          <div>${player.name}</div>
+          <div class="text-[var(--primary-action)] font-bold">${player.points} pts</div>
+        `;
+        table.appendChild(row);
+      });
+
+      elements.contentBody.appendChild(table);
+    }
+
+    function renderActiveTab() {
+      const data = tabContent[appState.activeTab];
+      elements.panel.classList.remove("panel-enter");
+      void elements.panel.offsetWidth;
+      elements.panel.classList.add("panel-enter");
+
+      elements.panelTitle.textContent = data.title;
+      elements.panelIntro.textContent = data.intro;
+      elements.panelIcon.setAttribute("data-lucide", data.icon);
+
+      // Render content based on tab type
+      if (data.servers) {
+        renderServers(data.servers);
+      } else if (data.packs) {
+        renderPacks(data.packs);
+      } else if (data.videos) {
+        renderVideos(data.videos);
+      } else if (data.maps) {
+        renderMaps(data.maps);
+      } else if (data.players) {
+        renderLeaderboard(data.players);
+      }
+
+      elements.tabButtons.forEach((button) => {
+        const isActive = button.dataset.tab === appState.activeTab;
+        button.classList.toggle("tab-active", isActive);
+        button.style.backgroundColor = isActive
+          ? (getConfig().primary_action_color || defaultConfig.primary_action_color)
+          : (getConfig().surface_color || defaultConfig.surface_color);
+        button.style.color = isActive
+          ? "#0b0f0b"
+          : (getConfig().text_color || defaultConfig.text_color);
+      });
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
+
+    async function onConfigChange(config) {
+      const merged = { ...defaultConfig, ...config };
+      const bodyFontStack = `${merged.font_family}, "VT323", monospace`;
+
+      document.documentElement.style.setProperty("--bg-color", merged.background_color);
+      document.documentElement.style.setProperty("--surface-color", merged.surface_color);
+      document.documentElement.style.setProperty("--text-color", merged.text_color);
+      document.documentElement.style.setProperty("--primary-action", merged.primary_action_color);
+      document.documentElement.style.setProperty("--secondary-action", merged.secondary_action_color);
+
+      elements.body.style.color = merged.text_color;
+      elements.mainTitle.textContent = merged.main_title;
+      elements.subtitleText.textContent = merged.subtitle_text;
+      elements.tabOneLabel.textContent = merged.tab_one_label;
+      elements.tabTwoLabel.textContent = merged.tab_two_label;
+      elements.tabThreeLabel.textContent = merged.tab_three_label;
+      elements.tabFourLabel.textContent = merged.tab_four_label;
+      elements.tabFiveLabel.textContent = merged.tab_five_label;
+      elements.tabSixLabel.textContent = merged.tab_six_label;
+
+      elements.mainTitle.style.fontFamily = `${merged.font_family}, "Press Start 2P", cursive`;
+      elements.panelTitle.style.fontFamily = `${merged.font_family}, "Press Start 2P", cursive`;
+      elements.subtitleText.style.fontFamily = bodyFontStack;
+      elements.statusText.style.fontFamily = bodyFontStack;
+      elements.panelIntro.style.fontFamily = bodyFontStack;
+      elements.contentBody.style.fontFamily = bodyFontStack;
+      elements.tabButtons.forEach(btn => btn.style.fontFamily = bodyFontStack);
+
+      const base = merged.font_size;
+      elements.mainTitle.style.fontSize = `${base * 1.9}px`;
+      elements.subtitleText.style.fontSize = `${base * 1.25}px`;
+      elements.statusText.style.fontSize = `${base * 0.85}px`;
+      elements.panelTitle.style.fontSize = `${base * 1.6}px`;
+      elements.panelIntro.style.fontSize = `${base * 1.05}px`;
+      elements.contentBody.querySelectorAll("h3").forEach(h3 => {
+        h3.style.fontSize = `${base * 1.2}px`;
+      });
+      elements.contentBody.querySelectorAll("p").forEach(p => {
+        p.style.fontSize = `${base}px`;
+      });
+
+      renderActiveTab();
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => window.elementSdk && window.elementSdk.setConfig({ background_color: value })
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => window.elementSdk && window.elementSdk.setConfig({ surface_color: value })
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => window.elementSdk && window.elementSdk.setConfig({ text_color: value })
+          },
+          {
+            get: () => config.primary_action_color || defaultConfig.primary_action_color,
+            set: (value) => window.elementSdk && window.elementSdk.setConfig({ primary_action_color: value })
+          },
+          {
+            get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+            set: (value) => window.elementSdk && window.elementSdk.setConfig({ secondary_action_color: value })
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => window.elementSdk && window.elementSdk.setConfig({ font_family: value })
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => window.elementSdk && window.elementSdk.setConfig({ font_size: value })
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      const merged = { ...defaultConfig, ...config };
+      return new Map([
+        ["main_title", merged.main_title],
+        ["subtitle_text", merged.subtitle_text],
+        ["tab_one_label", merged.tab_one_label],
+        ["tab_two_label", merged.tab_two_label],
+        ["tab_three_label", merged.tab_three_label],
+        ["tab_four_label", merged.tab_four_label],
+        ["tab_five_label", merged.tab_five_label],
+        ["tab_six_label", merged.tab_six_label]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    } else {
+      onConfigChange(defaultConfig);
+    }
+
+    elements.tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        appState.activeTab = button.dataset.tab;
+        renderActiveTab();
+      });
+    });
+
+    renderActiveTab();
+
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e423b20c6ba7f27',t:'MTc3NDgyMjUwMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
